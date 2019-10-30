@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=.\libs\Utilities-JSHOP2-1.0-SNAPSHOT-jar-with-dependencies.jar -DgroupId=utilities.jshop2 -DartifactId=jshop2 -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true

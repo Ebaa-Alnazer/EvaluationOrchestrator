@@ -1,0 +1,8 @@
+(defproblem problem movecontainer
+((size 6)
+(stage 0)
+(truck t1) (at t1 1 1)
+(container c1) (at c1 4 4)
+)
+
+((transport-container  c1 t1 2 2)))

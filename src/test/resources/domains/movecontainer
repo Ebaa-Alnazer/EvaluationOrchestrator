@@ -1,0 +1,109 @@
+(defdomain movecontainer (
+  (:operator (!go-shortcut ?t ?x ?y ?x2 ?y2 ?s) ((not(dont-visit ?s ?x2 ?y2))) ((at ?t ?x ?y)) ((at ?t ?x2 ?y2)(dont-visit ?s ?x ?y)) 5)
+  (:operator (!go-north ?t ?x ?y ?s) ((not(dont-visit ?s ?x (call + ?y 1)))) ((at ?t ?x ?y)) ((at ?t ?x (call + ?y 1))(dont-visit ?s ?x ?y)) )
+  (:operator (!go-east ?t ?x ?y ?s) ((not(dont-visit ?s (call + ?x 1) ?y))) ((at ?t ?x ?y)) ((at ?t (call + ?x 1) ?y )(dont-visit ?s ?x ?y) ))
+  (:operator (!go-south ?t ?x ?y ?s) ((not(dont-visit ?s ?x (call - ?y 1)))) ((at ?t ?x ?y)) ((at ?t ?x (call - ?y 1))(dont-visit  ?s ?x ?y) ))
+  (:operator (!go-west ?t ?x ?y ?s) ((not(dont-visit ?s (call - ?x 1) ?y))) ((at ?t ?x ?y)) ((at ?t (call - ?x 1) ?y )(dont-visit ?s ?x ?y) ))
+  (:operator (!nop) () () () 0)
+  (:operator (!take ?c ?t ) ((at ?c ?xc ?yc)(at ?t ?xc ?yc)) ((at ?c ?xc ?yc)) ())
+  (:operator (!load ) () ((stage 0)) ((stage 1)))
+  (:operator (!unload ) () () ())
+  (:operator (!put ?c ?t ) ((at ?t ?xt ?yt)) () ((at ?c ?xt ?yt)))
+  (:operator (!go-to-post ?t ?c ) ((at ?t ?xt ?yt)(at ?c ?xc ?yc)) ((at ?c ?xc ?yc)) ((at ?c ?xt ?yt)) 1)
+  (:operator (!online-stamping ) () () () 50)
+  (:operator (!packaging ) () () () 2)
+  (:operator (!write-address ) () () () 0)
+
+  ;; -------------------------------------- methods
+
+  ;; ----------------- transport-Container
+  (:method (transport-container ?c ?t ?xt ?yt)
+     transport-container
+    ((at ?c ?xc ?yc) (at ?t ?x ?y))
+    ((meet-container-truck ?t ?c ?xc ?yc) (setup ?c ?t)(move ?t ?xt ?yt)(finish ?c ?t)))
+
+
+
+ (:method (meet-container-truck ?t ?c ?xc ?yc)
+    send-by-post
+     ((not(at ?t ?xc ?yc))(at ?t ?xt ?yt))
+     ((!online-stamping)(!packaging)(!write-address)(!go-to-post ?t ?c))
+     )
+
+  (:method (meet-container-truck ?t ?c ?xc ?yc)
+   move-to-container
+   ()
+   ((move ?t ?xc ?yc))
+   )
+
+
+   ;; ----------------- move
+  (:method (move ?t ?xc ?yc)
+    dont-do-anything
+    ((at ?t ?xc ?yc) )
+    ((!nop) ))
+
+
+
+
+  (:method (move ?t ?xc ?yc)
+     go-step-and-move
+       ((not(at ?t ?xc ?yc)) )
+       ((go-step ?t) (move ?t ?xc ?yc)))
+
+(:method (move ?t ?xc ?yc)
+      go-shortcut
+        ((not(at ?t ?xc ?yc) )(at ?t ?x ?y)(shortcut ?x ?y ?xc ?yc)(stage ?s))
+        ((!go-shortcut ?t ?x ?y ?xc ?yc ?s)  ))
+
+
+   ;; ----------------- go-step
+
+
+    (:method (go-step ?t)
+      go-north
+       ((at ?t ?x ?y) (inside ?x (call + ?y 1)) (stage ?s))
+       ((!go-north ?t ?x ?y ?s) ))
+
+    (:method (go-step ?t)
+      go-east
+      ((at ?t ?x ?y) (inside  (call + ?x 1) ?y) (stage ?s))
+       ((!go-east ?t ?x ?y ?s) ))
+
+    (:method (go-step ?t)
+      go-south
+           ((at ?t ?x ?y) (inside ?x (call - ?y 1)) (stage ?s))
+           ((!go-south ?t ?x ?y ?s) ))
+
+   (:method (go-step ?t)
+      go-west
+           ((at ?t ?x ?y) (inside (call - ?x 1) ?y ) (stage ?s))
+     ((!go-west ?t ?x ?y ?s) ))
+
+
+
+
+
+
+
+    ;; ----------------- setup
+     (:method (setup ?c ?t)
+           setup
+           ()
+           ((!take ?c ?t )(!load ))
+           )
+
+
+     ;; ----------------- finish
+
+     (:method (finish ?c ?t)
+               finish
+                ()
+                ((!unload )(!put ?c ?t ))
+                )
+
+    ;; --------------------------------------- axioms
+    (:- (inside ?x ?y)
+            ((size ?si) (call < ?x ?si) (call < ?y ?si) (call >= ?x 0)(call >= ?y 0))
+            )
+     ) )
