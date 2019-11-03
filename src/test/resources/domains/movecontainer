@@ -22,8 +22,6 @@
     ((at ?c ?xc ?yc) (at ?t ?x ?y))
     ((meet-container-truck ?t ?c ?xc ?yc) (setup ?c ?t)(move ?t ?xt ?yt)(finish ?c ?t)))
 
-
-
  (:method (meet-container-truck ?t ?c ?xc ?yc)
     send-by-post
      ((not(at ?t ?xc ?yc))(at ?t ?xt ?yt))
@@ -36,15 +34,11 @@
    ((move ?t ?xc ?yc))
    )
 
-
    ;; ----------------- move
   (:method (move ?t ?xc ?yc)
     dont-do-anything
     ((at ?t ?xc ?yc) )
     ((!nop) ))
-
-
-
 
   (:method (move ?t ?xc ?yc)
      go-step-and-move
@@ -58,8 +52,6 @@
 
 
    ;; ----------------- go-step
-
-
     (:method (go-step ?t)
       go-north
        ((at ?t ?x ?y) (inside ?x (call + ?y 1)) (stage ?s))
@@ -80,20 +72,12 @@
            ((at ?t ?x ?y) (inside (call - ?x 1) ?y ) (stage ?s))
      ((!go-west ?t ?x ?y ?s) ))
 
-
-
-
-
-
-
     ;; ----------------- setup
      (:method (setup ?c ?t)
            setup
            ()
            ((!take ?c ?t )(!load ))
            )
-
-
      ;; ----------------- finish
 
      (:method (finish ?c ?t)
@@ -101,7 +85,6 @@
                 ()
                 ((!unload )(!put ?c ?t ))
                 )
-
     ;; --------------------------------------- axioms
     (:- (inside ?x ?y)
             ((size ?si) (call < ?x ?si) (call < ?y ?si) (call >= ?x 0)(call >= ?y 0))

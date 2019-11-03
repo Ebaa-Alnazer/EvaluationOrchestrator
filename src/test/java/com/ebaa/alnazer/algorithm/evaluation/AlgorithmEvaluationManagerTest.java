@@ -10,6 +10,7 @@ import com.ebaa.alnazer.algorithm.algorithms.PlanningAlgorithm;
 import com.ebaa.alnazer.algorithm.algorithms.RiskAttitude;
 import com.ebaa.alnazer.algorithm.algorithms.UAShop;
 import com.ebaa.alnazer.algorithm.evaluation.scenarios.DiagonalProblemEvaluationScenario;
+import com.ebaa.alnazer.algorithm.evaluation.scenarios.DiagonalProblemEvaluationScenariotest;
 import com.ebaa.alnazer.algorithm.evaluation.scenarios.EvaluationScenario;
 import com.ebaa.alnazer.algorithm.evaluation.scenarios.ResourceBasedScenario;
 import com.ebaa.alnazer.algorithm.evaluation.scenarios.decorator.RepetitionsDecorator;
@@ -21,7 +22,7 @@ class AlgorithmEvaluationManagerTest {
     final int START_SIZE = 4;
     final int END_SIZE = 26;
     final int STEP = 1;
-    final int REPS = 10;
+    final int REPS = 1;
 
     @Test
     public void runEvaluation() throws IOException {
@@ -38,7 +39,10 @@ class AlgorithmEvaluationManagerTest {
         manager.addScenario(createUADiagonalScenario(RESOURCE, RiskAttitude.RISK_AWARE, false));
         manager.addScenario(createUADiagonalScenario(RESOURCE, RiskAttitude.RISK_AWARE, true));
         manager.addScenario(createJShopDiagonalScenario(true));
-        manager.addScenario(createUAResourseSecenario(20,2.0,10, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_AVERSE));
+        manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_AVERSE));
+        manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_SEEKING));
+        manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_AWARE));
+        manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_NEUTRAL));
 
         manager.run();
     }
@@ -52,22 +56,18 @@ class AlgorithmEvaluationManagerTest {
         // diagonal scenarios
         //-------------------
         final double RESOURCE = 350.0;
-/*        manager.addScenario(createUADiagonalScenario(RESOURCE, RiskAttitude.RISK_SEEKING, false));
+        manager.addScenario(createUADiagonalScenario(RESOURCE, RiskAttitude.RISK_SEEKING, false));
         manager.addScenario(createJShopDiagonalScenario(true));
         manager.addScenario(createUADiagonalScenario(RESOURCE, RiskAttitude.RISK_AVERSE, false));
         manager.addScenario(createUADiagonalScenario(RESOURCE, RiskAttitude.RISK_NEUTRAL, false));
-        manager.addScenario(createUADiagonalScenario(RESOURCE, RiskAttitude.RISK_AWARE, false));*/
+        manager.addScenario(createUADiagonalScenario(RESOURCE, RiskAttitude.RISK_AWARE, false));
 
 
-       /* manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_AVERSE));
+        manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_AVERSE));
         manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_SEEKING));
         manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_AWARE));
-        manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_NEUTRAL));*/
+        manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_NEUTRAL));
 
-        manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(1).y(1).build(), Position.builder().x(18).y(18).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_AVERSE));
-        manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(1).y(1).build(), Position.builder().x(18).y(18).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_SEEKING));
-      //  manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(1).y(1).build(), Position.builder().x(18).y(18).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_AWARE));
-        //manager.addScenario(createUAResourseSecenario(20,2.0,50, Position.builder().x(1).y(1).build(), Position.builder().x(18).y(18).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_NEUTRAL));
         manager.run();
     }
 
@@ -129,6 +129,17 @@ class AlgorithmEvaluationManagerTest {
                 .build();
 
         return repeat(scenario);
+    }
+
+
+    @Test
+    public void test2() throws  IOException {
+        final Path RESULT_PATH = Files.createTempDirectory("evaluation-results-testShortcut");
+        AlgorithmEvaluationManager manager = new AlgorithmEvaluationManager();
+        manager.setFolderPath(RESULT_PATH.toFile());
+        final double RESOURCE = 350.0;
+        manager.addScenario(createUADiagonalScenario(RESOURCE, RiskAttitude.RISK_SEEKING, true));
+
     }
 
     private EvaluationScenario createUADiagonalScenario(double resource, RiskAttitude riskAttitude, boolean hasShortcut) throws IOException {
