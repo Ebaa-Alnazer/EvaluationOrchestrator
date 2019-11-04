@@ -21,7 +21,7 @@ class AlgorithmEvaluationManagerTest {
     final int START_SIZE = 4;
     final int END_SIZE = 26;
     final int STEP = 2;
-    final int REPS = 1;
+    final int REPS = 10;
 
     @Test
     public void runEvaluation() throws IOException {
@@ -51,7 +51,6 @@ class AlgorithmEvaluationManagerTest {
         manager.addScenario(createUAResourseScenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_AVERSE));
         manager.addScenario(createUAResourseScenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_NEUTRAL));
         manager.addScenario(createUAResourseScenario(20,2.0,50, Position.builder().x(0).y(0).build(), Position.builder().x(0).y(0).build(),Position.builder().x(9).y(9).build(), RiskAttitude.RISK_AWARE));
-
 
         manager.addScenario(createUASmallResourceScenario(SMALLRESOURCE, RiskAttitude.RISK_SEEKING, false));
         manager.addScenario(createUASmallResourceScenario(SMALLRESOURCE, RiskAttitude.RISK_AWARE, false));

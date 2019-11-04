@@ -60,4 +60,9 @@ public class SmallResourceScenario extends BasicProblemEvaluationScenario {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("smallResource-start%s-end%s-step%s-shortcut%s-algo_%s_", startSize, endSize, step,hasShortcuts, algorithm.toString());
+    }
 }

@@ -94,6 +94,6 @@ public class BasicProblemEvaluationScenario extends EvaluationScenario{
 
     @Override
     public String toString() {
-        return String.format("diagonal-start%s-end%s-step%s-shortcut%s-algo_%s_", startSize, endSize, step,hasShortcuts, algorithm.toString());
+       return null;
     }
 }
