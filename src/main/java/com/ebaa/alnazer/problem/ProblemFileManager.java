@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import com.ebaa.alnazer.problem.movecontainer.generate.DiagonalProblemGenerator;
+import com.ebaa.alnazer.problem.movecontainer.generate.OrderingMethodsGenerator;
 import com.ebaa.alnazer.problem.movecontainer.generate.RandomProblemGenerator;
+import com.ebaa.alnazer.problem.movecontainer.generate.SmallResourceGenerator;
 import com.ebaa.alnazer.problem.movecontainer.model.MoveContainerProblem;
 import freemarker.template.TemplateException;
 
@@ -44,6 +46,17 @@ public class ProblemFileManager {
 
     public static void generateDiagonalMoveContainerProblemFile(int size, boolean hasShortcut, File outputFilePath) throws IOException, TemplateException {
         DiagonalProblemGenerator generator = DiagonalProblemGenerator.builder().size(size).hasShortcut(hasShortcut).build();
+        MoveContainerProblem problem = generator.generateProblem();
+        generateMoveContainerProblemFile(problem, outputFilePath);
+    }
+
+    public static void generateSmallResourceMoveContainerProblemFile(int size, boolean hasShortcut, File outputFilePath) throws IOException, TemplateException {
+        SmallResourceGenerator generator = SmallResourceGenerator.builder().size(size).hasShortcut(hasShortcut).build();
+        MoveContainerProblem problem = generator.generateProblem();
+        generateMoveContainerProblemFile(problem, outputFilePath);
+    }
+    public static void generateOrderingMethodsMoveContainerProblemFile(int size, boolean hasShortcut, File outputFilePath) throws IOException, TemplateException {
+        OrderingMethodsGenerator generator = OrderingMethodsGenerator.builder().size(size).hasShortcut(hasShortcut).build();
         MoveContainerProblem problem = generator.generateProblem();
         generateMoveContainerProblemFile(problem, outputFilePath);
     }

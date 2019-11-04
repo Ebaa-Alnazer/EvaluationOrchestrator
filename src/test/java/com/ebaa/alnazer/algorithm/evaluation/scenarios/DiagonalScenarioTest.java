@@ -11,15 +11,15 @@ import com.ebaa.alnazer.algorithm.algorithms.RiskAttitude;
 import com.ebaa.alnazer.algorithm.algorithms.UAShop;
 import org.junit.jupiter.api.Test;
 
-class DiagonalProblemEvaluationScenarioTest {
+public class DiagonalScenarioTest {
     @Test
     public void testDiagonalScenario() throws IOException {
         final int START_SIZE = 4;
-        final int END_SIZE = 15;
-        final int STEP = 1;
+        final int END_SIZE = 24;
+        final int STEP = 4;
         final Path EXECUTION_PATH = Files.createTempDirectory("diagonal-evaluation-scenario-");
-        //PlanningAlgorithm algorithm = UAShop.builder().resource(450).riskAttitude(RiskAttitude.RISK_SEEKING).build();
-        PlanningAlgorithm algorithm= new JShop2();
+        PlanningAlgorithm algorithm = UAShop.builder().resource(350).riskAttitude(RiskAttitude.RISK_SEEKING).build();
+       // PlanningAlgorithm algorithm= new JShop2();
        // PlanningAlgorithm algorithm = UAShop.builder().resource(28).riskAttitude(RiskAttitude.RISK_SEEKING).build();
         DiagonalProblemEvaluationScenario scenario = DiagonalProblemEvaluationScenario
                 .builder()
@@ -39,7 +39,7 @@ class DiagonalProblemEvaluationScenarioTest {
         final int STEP = 5;
         final Path EXECUTION_PATH = Files.createTempDirectory("diagonal-evaluation-scenario-shortcut-");
         PlanningAlgorithm algorithm = UAShop.builder().resource(450).riskAttitude(RiskAttitude.RISK_SEEKING).build();
-        DiagonalProblemEvaluationScenario scenario = DiagonalProblemEvaluationScenario
+        DiagonalScenario scenario = DiagonalScenario
                 .builder()
                 .algorithm(algorithm)
                 .startSize(START_SIZE)

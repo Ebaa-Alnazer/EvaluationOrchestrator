@@ -1,6 +1,7 @@
 package com.ebaa.alnazer.algorithm.evaluation.scenarios;
 
 import com.ebaa.alnazer.algorithm.algorithms.PlanningAlgorithm;
+import com.ebaa.alnazer.algorithm.algorithms.RiskAttitude;
 import com.ebaa.alnazer.algorithm.algorithms.UAShop;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.io.*;
 
 @Data
 public class BasicProblemEvaluationScenario extends EvaluationScenario{
-    protected static final Logger log = LoggerFactory.getLogger(DiagonalProblemEvaluationScenario.class);
+    protected static final Logger log = LoggerFactory.getLogger(DiagonalScenario.class);
     protected int startSize;
     protected int endSize;
     protected int step;
@@ -20,13 +21,15 @@ public class BasicProblemEvaluationScenario extends EvaluationScenario{
     protected PlanningAlgorithm algorithm;
 
 
-    public BasicProblemEvaluationScenario(int startSize, int endSize, int step, boolean hasShortcuts, PlanningAlgorithm algorithm,File outputDirectory) {
+
+    public BasicProblemEvaluationScenario(int startSize,  int endSize, int step, boolean hasShortcuts, PlanningAlgorithm algorithm,File outputDirectory) {
         super(outputDirectory);
         this.startSize = startSize;
         this.endSize = endSize;
         this.step = step;
         this.hasShortcuts = hasShortcuts;
         this.algorithm = algorithm;
+
     }
 
 

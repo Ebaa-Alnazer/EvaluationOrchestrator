@@ -1,6 +1,7 @@
 package com.ebaa.alnazer.algorithm.evaluation.scenarios;
 
 import com.ebaa.alnazer.algorithm.algorithms.PlanningAlgorithm;
+import com.ebaa.alnazer.algorithm.algorithms.RiskAttitude;
 import com.ebaa.alnazer.algorithm.execution.AlgorithmExecutionManager;
 import com.ebaa.alnazer.problem.ProblemFileManager;
 import freemarker.template.TemplateException;
@@ -15,10 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Data
-public class DiagonalProblemEvaluationScenariotest extends BasicProblemEvaluationScenario {
+public class DiagonalScenario extends BasicProblemEvaluationScenario {
 
      @Builder
-    public DiagonalProblemEvaluationScenariotest(int startSize, int endSize, int step, boolean hasShortcuts, PlanningAlgorithm algorithm, File outputDirectory) {
+    public DiagonalScenario(int startSize, int endSize, int step, boolean hasShortcuts, PlanningAlgorithm algorithm, File outputDirectory) {
         super(startSize, endSize, step, hasShortcuts, algorithm, outputDirectory);
     }
     @Override
